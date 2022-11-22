@@ -1,0 +1,150 @@
+2|0-2
+X|1-1
+1|2-1
+1|2-1
+1|3-1
+2|1-2
+1|3-0
+1|4-1
+1|2-1
+1|3-1
+X|1-1
+1|2-0
+1|1-0
+1|2-0
+1|2-0
+1|3-1
+2|0-2
+1|3-1
+X|1-1
+1|2-0
+1|2-1
+1|2-0
+X|1-1
+X|1-1
+1|2-1
+X|1-1
+1|2-1
+1|2-1
+X|2-2
+1|3-1
+1|1-0
+X|2-2
+2|0-1
+1|2-0
+X|1-1
+2|0-2
+2|1-2
+2|0-2
+2|1-2
+2|0-2
+X|2-2
+2|1-2
+X|2-2
+2|0-1
+X|2-2
+2|1-2
+2|1-2
+2|0-2
+
+
+Paises Bajos
+Senegal
+Ecuador
+Catar
+Inglaterra
+Estados unidos
+Gales
+Irán
+Argentina
+Polonia
+México
+Arabia Saudita
+Francia
+Dinamarca
+Australia
+Túnez
+Alemania
+España
+Japón
+Costa Rica
+Bélgica
+Croacia
+Marruecos
+Canadá
+Brasil
+Suiza
+Serbia
+Camerún
+Portugal
+Uruguay
+Corea del Sur
+Ghana
+
+
+Paises Bajos
+Argentina
+Francia
+Inglaterra
+Alemania
+Brasil
+Bélgica
+Portugal
+Estados unidos
+Dinamarca
+Polonia
+Senegal
+Croacia
+Uruguay
+España
+Suiza
+
+
+Paises Bajos-Estados unidos·1|3-0
+Argentina-Dinamarca·X|1-1
+Francia-Polonia·1|2-1
+Inglaterra-Senegal·1|3-1
+Alemania-Croacia·X|1-1
+Brasil-Uruguay·1|3-1
+Bélgica-España·X|2-2
+Portugal-Suiza·1|2-1
+
+
+Croacia
+Paises Bajos
+España
+Inglaterra
+Brasil
+Argentina
+Portugal
+Francia
+
+
+Croacia-Brasil·2|0-2
+Paises Bajos-Argentina·X|2-2
+España-Portugal·1|1-0
+Inglaterra-Francia·2|0-1
+
+
+Paises Bajos
+Francia
+Brasil
+España
+
+
+Paises Bajos-Brasil·X|2-2
+Francia-España·2|1-3
+
+
+Paises Bajos
+Francia
+
+
+Brasil
+España
+
+
+Paises Bajos-Francia·2|0-2
+
+
+Brasil-España·X|1-1

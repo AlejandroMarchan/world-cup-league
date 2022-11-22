@@ -464,6 +464,7 @@ def get_res_symbol(result):
     Input('placeholder', 'title'),
     Output('matchs-table', 'data'),
     Output('classification-table', 'data'),
+    Output('matchs-table', 'style_data_conditional'),
 )
 def load_matches(x):
     matches = []
@@ -518,6 +519,14 @@ def load_matches(x):
 
         match_rows.append(row)
 
+    styles = [
+        {
+            "if": {"state": "selected"},
+            "backgroundColor": "none",
+            "border": "1px solid rgb(211, 211, 211)",
+        }
+    ]
+
     pred_rows = []
 
     for file, clean_preds in PREDICTIONS.items():
@@ -536,7 +545,7 @@ def load_matches(x):
         
         groups_preds = clean_preds[:48]
 
-        for match in match_rows:
+        for row_idx, match in enumerate(match_rows):
             try:
                 match_idx = MATCH_TAGS.index(match['tag'])
 
@@ -550,19 +559,39 @@ def load_matches(x):
                     # print('real_result', real_result)
                     # print('pred_result', pred_result)
 
+                    real_res_symbol = get_res_symbol(real_result)
+                    pred_res_symbol = get_res_symbol(pred_result)
+                    
                     # Check exact result
                     if real_result[0] == pred_result[0] and real_result[1] == pred_result[1]:
                         # print('res_exacto')
                         pred_row['res_exacto'] += 1
-
-                    real_res_symbol = get_res_symbol(real_result)
-                    pred_res_symbol = get_res_symbol(pred_result)
-                    
+                        styles.append({
+                            'if': {
+                                'row_index': row_idx, 
+                                'column_id': file
+                            },
+                            'backgroundColor': '#92ff9273',
+                        })
                     # Check match result
-                    if real_res_symbol == pred_res_symbol:
+                    elif real_res_symbol == pred_res_symbol:
                         # print('res_partido')
                         pred_row['res_partido'] += 1
-
+                        styles.append({
+                            'if': {
+                                'row_index': row_idx, 
+                                'column_id': file
+                            },
+                            'backgroundColor': '#ffff0080',
+                        })
+                    else:
+                        styles.append({
+                            'if': {
+                                'row_index': row_idx, 
+                                'column_id': file
+                            },
+                            'backgroundColor': '#ff3e3e59',
+                        })
                     # print()
 
             except:
@@ -582,7 +611,7 @@ def load_matches(x):
     pred_rows.sort(key=lambda x: x['total'], reverse=True)
     # print(pred_rows)
 
-    return match_rows, pred_rows
+    return match_rows, pred_rows, styles
 
 
 if __name__ == "__main__":
