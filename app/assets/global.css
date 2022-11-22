@@ -3,8 +3,33 @@ body {
     overflow-x: hidden;
 }
 
+@media (max-width: 1200px) {
+    body {
+        font-size: 3vw;
+    }
+
+    #matchs-table {
+        width: 90vw;
+    }
+
+    #classification-table {
+        width: 90vw;
+    }
+}
+
+@media (min-width: 1200px) {
+    #matchs-table {
+        width: 35vw;
+    }
+
+    #classification-table {
+        width: 60vw;
+    }
+}
+
 td img {
-    width: 25px;
+    width: 4vw;
+    max-width: 25px;
 }
 
 .cell-markdown {
@@ -15,7 +40,6 @@ td img {
     margin-bottom: 0;
 }
 
-#matchs-table {
-    width: 35vw;
-    min-width: 650px;
+.dash-spreadsheet-inner {
+    overflow-x: scroll;
 }

@@ -1,0 +1,48 @@
+Senegal-Paises Bajos
+Catar-Ecuador
+Inglaterra-Irán
+Estados unidos-Gales
+Argentina-Arabia Saudita
+México-Polonia
+Dinamarca-Túnez
+Francia-Australia
+Alemania-Japón
+España-Costa Rica
+Marruecos-Croacia
+Bélgica-Canadá
+Suiza-Camerún
+Brasil-Serbia
+Uruguay-Corea del Sur
+Portugal-Ghana
+Catar-Senegal
+Paises Bajos-Ecuador
+Gales-Irán
+Inglaterra-Estados unidos
+Polonia-Arabia Saudita
+Argentina-México
+Túnez-Australia
+Francia-Dinamarca
+Japón-Costa Rica
+España-Alemania
+Bélgica-Marruecos
+Croacia-Canadá
+Camerún-Serbia
+Brasil-Suiza
+Corea del Sur-Ghana
+Portugal-Uruguay
+Ecuador-Senegal
+Paises Bajos-Catar
+Gales-Inglaterra
+Irán-Estados unidos
+Polonia-Argentina
+Arabia Saudita-México
+Australia-Dinamarca
+Túnez-Francia
+Japón-España
+Costa Rica-Alemania
+Croacia-Bélgica
+Canadá-Marruecos
+Serbia-Suiza
+Camerún-Brasil
+Ghana-Uruguay
+Corea del Sur-Portugal
