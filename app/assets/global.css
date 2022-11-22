@@ -1,0 +1,21 @@
+body {
+    background-color:#f3f6f8;
+    overflow-x: hidden;
+}
+
+td img {
+    width: 25px;
+}
+
+.cell-markdown {
+    text-align: center !important;
+}
+
+.cell-markdown p {
+    margin-bottom: 0;
+}
+
+#matchs-table {
+    width: 35vw;
+    min-width: 650px;
+}
