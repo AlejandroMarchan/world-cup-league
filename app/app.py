@@ -94,8 +94,13 @@ TEAMS_EN_ES = {
     'South Korea': 'Corea del Sur',
 }
 
+DEV_API_TOKEN = ''
+try:
+    DEV_API_TOKEN = open('api_token', 'r').read()
+except:
+    log.info("Couldn't read local cookie")
 
-API_TOKEN = os.getenv('API_TOKEN', open('api_token', 'r').read())
+API_TOKEN = os.getenv('API_TOKEN', DEV_API_TOKEN)
 
 HEADERS = {
     'Authorization': f'Bearer {API_TOKEN}',
