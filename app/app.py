@@ -185,7 +185,7 @@ TABLE_STYLE_CELL_CONDITIONAL = [
 
 CLASSIFICATION_COLUMNS = [
     {
-        "name": 'Nombre', 
+        "name": 'Nombre participante', 
         "id": 'nombre'
     },
     {
@@ -480,6 +480,7 @@ def load_matches(x):
             'final': 0,
             'campeon': 0,
         }
+        # print(f'[bold]{pred_row["nombre"]}')
 
         clean_preds = []
 
@@ -535,6 +536,7 @@ def load_matches(x):
 
         pred_rows.append(pred_row)
 
+    pred_rows.sort(key=lambda x: x['total'])
     # print(pred_rows)
 
     return match_rows, pred_rows
