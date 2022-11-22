@@ -246,9 +246,13 @@ app.layout = html.Div(
     Output('matchs-table', 'data'),
 )
 def load_matches(x):
-    response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
+    matches = []
+    try:
+        response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
 
-    matches = response.json()['data']
+        matches = response.json()['data']
+    except:
+        log.info('API call failed')
 
     print(matches)
     # import json
