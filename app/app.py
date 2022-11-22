@@ -3,6 +3,7 @@ import logging
 import sys
 import os
 from datetime import datetime, timedelta
+import json
 
 # Init logging
 logging.basicConfig(
@@ -434,12 +435,12 @@ def load_matches(x):
         response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
 
         matches = response.json()['data']
+        with open('app/assets/matches.json', 'w') as f:
+            json.dump(matches, f)
     except:
         log.info('API call failed')
-
-    # import json
-    # with open('tests/matches.json', 'r') as f:
-    #     matches = json.load(f)
+        with open('app/assets/matches.json', 'r') as f:
+            matches = json.load(f)
 
     # print(matches)
     matches.sort(key=lambda x: x['local_date'])
