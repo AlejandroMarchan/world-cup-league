@@ -152,6 +152,8 @@ try:
 except:
     log.info("Couldn't read local cookie")
 
+DEV = DEV_API_TOKEN != ''
+
 API_TOKEN = os.getenv('API_TOKEN', DEV_API_TOKEN)
 
 HEADERS = {
@@ -205,11 +207,16 @@ COLUMNS = [
 
 TABLE_STYLE_CELL_CONDITIONAL = [
     {'if': {'column_id': 'date'},
-        'min-width': '10vw'},
+        'width': '5vw', 'white-space': 'normal'},
     {'if': {'column_id': 'match'},
-        'min-width': '20vw'},
+        'width': '15vw'},
     {'if': {'column_id': 'result'},
-        'min-width': '5vw',},
+        'width': '5vw',},
+    *[
+        {'if': {'column_id': name},
+        'width': '30vw',}
+        for name in PREDICTIONS.keys() 
+    ]
 ]
 
 CLASSIFICATION_COLUMNS = [
@@ -324,6 +331,7 @@ app.layout = html.Div(
                                     sort_action='native',
                                     filter_action='native',
                                     filter_options={'case':'insensitive'},
+                                    fixed_rows={'headers': True, 'data': 0},
                                     style_as_list_view=True,
                                     style_cell_conditional=TABLE_STYLE_CELL_CONDITIONAL,
                                     style_data_conditional=[
@@ -334,11 +342,11 @@ app.layout = html.Div(
                                         }
                                     ],
                                     style_data={
-                                        'whiteSpace': 'normal',
+                                        'whiteSpace': 'nowrap',
                                         'height': 'auto',
+                                        'padding': '10px',
                                         'text-align': 'center',
                                         'overflow-x': 'auto',
-                                        'max-width': '0'
                                     },
                                     style_header={
                                         'font-weight': 'bold',
@@ -389,11 +397,11 @@ app.layout = html.Div(
                                         }
                                     ],
                                     style_data={
-                                        'whiteSpace': 'normal',
+                                        'whiteSpace': 'nowrap',
                                         'height': 'auto',
+                                        'padding': '10px',
                                         'text-align': 'center',
                                         'overflow-x': 'auto',
-                                        'max-width': '0'
                                     },
                                     style_header={
                                         'font-weight': 'bold',
@@ -459,18 +467,22 @@ def get_res_symbol(result):
 )
 def load_matches(x):
     matches = []
-    try:
-        response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
-
-        print(response)
-
-        matches = response.json()['data']
-        with open('app/assets/matches.json', 'w') as f:
-            json.dump(matches, f)
-    except:
-        log.info('API call failed')
+    if DEV:
         with open('app/assets/matches.json', 'r') as f:
             matches = json.load(f)
+    else:
+        try:
+            response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
+
+            print(response)
+
+            matches = response.json()['data']
+            with open('app/assets/matches.json', 'w') as f:
+                json.dump(matches, f)
+        except:
+            log.info('API call failed')
+            with open('app/assets/matches.json', 'r') as f:
+                matches = json.load(f)
 
     # print(matches)
     matches.sort(key=lambda x: x['local_date'])

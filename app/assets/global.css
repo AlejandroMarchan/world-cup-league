@@ -12,6 +12,10 @@ body {
         width: 90vw;
     }
 
+    #matchs-table .column-0 {
+        white-space: normal !important;
+    }
+
     #classification-table {
         width: 90vw;
     }
@@ -22,9 +26,19 @@ body {
         width: 35vw;
     }
 
+    #matchs-table .dash-spreadsheet-container {
+        max-height: 100vh;
+        height: 78vh;
+    }
+
     #classification-table {
         width: 60vw;
     }
+
+    /* #classification-table .dash-spreadsheet-container {
+        max-height: 100vh;
+        height: 78vh;
+    } */
 }
 
 td img {
