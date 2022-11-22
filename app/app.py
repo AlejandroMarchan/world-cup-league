@@ -159,6 +159,27 @@ HEADERS = {
     'Content-type': 'application/json'
 }
 
+# LOAD PREDICTIONS
+BASE_DIR = 'app/assets/predictions/'
+
+files = os.listdir(BASE_DIR)
+
+PREDICTIONS = {}
+
+for file in files:
+
+    clean_preds = []
+
+    with open(BASE_DIR + file, 'r') as f:
+        preds = f.readlines()
+
+        for pred in preds:
+            clean_pred = pred.strip()
+            if clean_pred != '':
+                clean_preds.append(clean_pred)
+
+    PREDICTIONS[file] = clean_preds
+
 COLUMNS = [
     {
         "name": 'Date', 
@@ -172,16 +193,23 @@ COLUMNS = [
     {
         "name": 'Result', 
         "id": 'result',
-    }
+    },
+    *[
+        {
+            "name": name.split('.')[0].title(), 
+            "id": name,
+        }
+        for name in PREDICTIONS.keys() 
+    ]
 ]
 
 TABLE_STYLE_CELL_CONDITIONAL = [
     {'if': {'column_id': 'date'},
-        'width': '35%'},
+        'min-width': '10vw'},
     {'if': {'column_id': 'match'},
-        'width': '50%'},
+        'min-width': '20vw'},
     {'if': {'column_id': 'result'},
-        'width': '15%',},
+        'min-width': '5vw',},
 ]
 
 CLASSIFICATION_COLUMNS = [
@@ -434,6 +462,8 @@ def load_matches(x):
     try:
         response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
 
+        print(response)
+
         matches = response.json()['data']
         with open('app/assets/matches.json', 'w') as f:
             json.dump(matches, f)
@@ -452,24 +482,33 @@ def load_matches(x):
         away_team = TEAMS_EN_ES.get(match['away_team_en'], match['away_team_en'])
         home_flag = match['home_flag']
         away_flag = match['away_flag']
+        home_score = match['home_score']
+        away_score = match['away_score']
+        match_tag = f"{home_team}-{away_team}"
         date = datetime.strptime(match['local_date'], '%m/%d/%Y %H:%M') - timedelta(hours=2)
+
+        if  match_tag == 'Irán-Gales' \
+            or match_tag == 'Serbia-Camerún' \
+            or match_tag == 'Inglaterra-Gales' \
+            or match_tag == 'Dinamarca-Australia' \
+            or match_tag == 'Brasil-Camerún':
+            home_team, away_team = away_team, home_team
+            home_flag, away_flag = away_flag, home_flag
+            home_score, away_score = away_score, home_score
+            match_tag = f"{home_team}-{away_team}"
 
         row = {
             'date': date.strftime('%b %d, %Y, %H:%M:%S'),
             'match': f"![home_flag]({home_flag}) **{home_team}** vs **{away_team}** ![away_flag]({away_flag})",
-            'tag': f"{home_team}-{away_team}",
-            'result': 'Not started' if match['time_elapsed'] == 'notstarted' else f'{match["home_score"]} - {match["away_score"]}',
+            'tag': match_tag,
+            'result': 'Not started' if match['time_elapsed'] == 'notstarted' else f'{home_score} - {away_score}',
         }
 
         match_rows.append(row)
 
     pred_rows = []
 
-    base_dir = 'app/assets/predictions/'
-
-    files = os.listdir(base_dir)
-
-    for file in files:
+    for file, clean_preds in PREDICTIONS.items():
         pred_row = {
             'nombre': file.split('.')[0].title(),
             'total': 0,
@@ -482,46 +521,37 @@ def load_matches(x):
             'campeon': 0,
         }
         # print(f'[bold]{pred_row["nombre"]}')
-
-        clean_preds = []
-
-        with open(base_dir + file, 'r') as f:
-            preds = f.readlines()
-
-            for pred in preds:
-                clean_pred = pred.strip()
-                if clean_pred != '':
-                    clean_preds.append(clean_pred)
         
         groups_preds = clean_preds[:48]
 
         for match in match_rows:
             try:
-                if match['result'] == 'Not started':
-                    break
-
                 match_idx = MATCH_TAGS.index(match['tag'])
 
-                real_result = [int(goals) for goals in match['result'].split('-')]
                 pred_result = [int(goals) for goals in groups_preds[match_idx].split('|')[1].split('-')]
-                # print(match['tag'])
-                # print('real_result', real_result)
-                # print('pred_result', pred_result)
+                match[file] = f'{pred_result[0]} - {pred_result[1]}'
 
-                # Check exact result
-                if real_result[0] == pred_result[0] and real_result[1] == pred_result[1]:
-                    # print('res_exacto')
-                    pred_row['res_exacto'] += 1
+                if match['result'] != 'Not started':
 
-                real_res_symbol = get_res_symbol(real_result)
-                pred_res_symbol = get_res_symbol(pred_result)
-                
-                # Check match result
-                if real_res_symbol == pred_res_symbol:
-                    # print('res_partido')
-                    pred_row['res_partido'] += 1
+                    real_result = [int(goals) for goals in match['result'].split('-')]
+                    # print(match['tag'])
+                    # print('real_result', real_result)
+                    # print('pred_result', pred_result)
 
-                # print()
+                    # Check exact result
+                    if real_result[0] == pred_result[0] and real_result[1] == pred_result[1]:
+                        # print('res_exacto')
+                        pred_row['res_exacto'] += 1
+
+                    real_res_symbol = get_res_symbol(real_result)
+                    pred_res_symbol = get_res_symbol(pred_result)
+                    
+                    # Check match result
+                    if real_res_symbol == pred_res_symbol:
+                        # print('res_partido')
+                        pred_row['res_partido'] += 1
+
+                    # print()
 
             except:
                 log.info(f'Error parsing {pred_row["nombre"]} predictions')
