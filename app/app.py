@@ -430,16 +430,16 @@ def get_res_symbol(result):
 )
 def load_matches(x):
     matches = []
-    # try:
-    #     response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
+    try:
+        response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
 
-    #     matches = response.json()['data']
-    # except:
-    #     log.info('API call failed')
+        matches = response.json()['data']
+    except:
+        log.info('API call failed')
 
-    import json
-    with open('tests/matches.json', 'r') as f:
-        matches = json.load(f)
+    # import json
+    # with open('tests/matches.json', 'r') as f:
+    #     matches = json.load(f)
 
     # print(matches)
     matches.sort(key=lambda x: x['local_date'])
