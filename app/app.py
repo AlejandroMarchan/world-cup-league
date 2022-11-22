@@ -471,7 +471,7 @@ def load_matches(x):
 
     for file in files:
         pred_row = {
-            'nombre': file.split('.')[0].capitalize(),
+            'nombre': file.split('.')[0].title(),
             'total': 0,
             'res_exacto': 0,
             'res_partido': 0,
@@ -537,7 +537,7 @@ def load_matches(x):
 
         pred_rows.append(pred_row)
 
-    pred_rows.sort(key=lambda x: x['total'])
+    pred_rows.sort(key=lambda x: x['total'], reverse=True)
     # print(pred_rows)
 
     return match_rows, pred_rows
