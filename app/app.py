@@ -249,6 +249,8 @@ def load_matches(x):
     response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
 
     matches = response.json()['data']
+
+    print(matches)
     # import json
     # with open('tests/matches.json', 'r') as f:
     #     matches = json.load(f)
