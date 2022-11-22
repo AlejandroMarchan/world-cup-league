@@ -3,3 +3,4 @@ dash
 gunicorn
 dash-bootstrap-components
 dash-extensions
+rich
