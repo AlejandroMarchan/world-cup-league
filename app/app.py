@@ -154,6 +154,8 @@ except:
 
 DEV = DEV_API_TOKEN != ''
 
+# DEV = False
+
 API_TOKEN = os.getenv('API_TOKEN', DEV_API_TOKEN)
 
 HEADERS = {
