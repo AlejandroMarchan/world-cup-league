@@ -94,9 +94,8 @@ TEAMS_EN_ES = {
     'South Korea': 'Corea del Sur',
 }
 
-DEV_API_TOKEN = open('api_token', 'r').read()
 
-API_TOKEN = os.getenv('API_TOKEN', DEV_API_TOKEN)
+API_TOKEN = os.getenv('API_TOKEN', open('api_token', 'r').read())
 
 HEADERS = {
     'Authorization': f'Bearer {API_TOKEN}',
