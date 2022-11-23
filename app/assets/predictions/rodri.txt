@@ -1,64 +1,64 @@
-1|2-1
-X|0-0
 X|1-1
-1|1-0
-1|5-0
-X|2-2
-X|1-1
-1|3-0
-1|2-1
-1|3-0
-2|0-1
-1|4-1
-X|1-1
-1|3-1
-1|4-2
-1|2-0
-2|0-3
-1|3-1
 2|1-2
-1|3-1
-1|2-0
-1|3-2
-1|2-0
-X|3-3
-1|2-1
-X|1-1
-1|3-0
-1|1-0
-2|0-1
 1|4-0
-X|1-1
 X|0-0
-2|1-2
-1|4-1
-2|0-4
+1|3-0
+X|0-0
+1|2-0
+1|3-0
+1|1-0
+1|2-0
 X|1-1
-2|1-2
-2|0-3
-2|1-3
-2|0-2
-2|1-2
-2|0-2
-X|1-1
+1|2-0
+1|1-0
+1|2-1
+1|2-0
+1|3-0
 2|0-2
 1|2-0
+1|1-0
+1|2-0
+1|2-0
+1|2-1
+X|1-1
+1|2-1
+1|2-1
+X|2-2
+1|2-0
+1|1-0
+2|1-3
+1|1-0
+2|0-1
+X|1-1
+2|0-1
+1|3-0
+2|1-2
+2|0-1
+X|1-1
 2|0-1
 2|1-3
-X|1-1
+2|0-2
+2|1-3
+2|0-2
+X|0-0
+2|0-1
+1|3-2
+2|1-4
+2|0-1
+2|0-2
 
 
-Senegal
 Paises Bajos
+Senegal
 Ecuador
 Catar
 Inglaterra
-Irán
-Estados unidos
 Gales
+Estados unidos
+Irán
 Argentina
-México
 Polonia
+México
 Arabia Saudita
 Francia
 Dinamarca
@@ -74,77 +74,77 @@ Marruecos
 Canadá
 Brasil
 Serbia
-Camerún
 Suiza
-Uruguay
+Camerún
 Portugal
-Corea del Sur
+Uruguay
 Ghana
+Corea del Sur
 
 
-Senegal
+Paises Bajos
 Argentina
 Francia
 Inglaterra
 España
 Brasil
 Bélgica
-Uruguay
-Irán
-Dinamarca
-México
-Paises Bajos
-Croacia
 Portugal
+Gales
+Dinamarca
+Polonia
+Senegal
+Croacia
+Uruguay
 Alemania
 Serbia
 
 
-Senegal-Irán·1|3-1
-Argentina-Dinamarca·1|1-0
-Francia-México·1|3-1
-Inglaterra-Paises Bajos·1|2-0
-España-Croacia·1|3-2
-Brasil-Portugal·1|5-1
-Bélgica-Alemania·1|2-1
-Uruguay-Serbia·X|1-1
+Países Bajos-Gales.|2-0
+Argentina-Dinamarca·1|3-2
+Francia-Polonia·1|2-1
+Inglaterra-Senegal·1|1-0
+España-Croacia·1|2-1
+Brasil-Uruguay·1|2-1
+Bélgica-Alemania·X|0-0
+Portugal-Serbia·X|2-2
 
 
 España
-Senegal
-Bélgica
+Paises Bajos
+Alemania
 Inglaterra
 Brasil
 Argentina
-Uruguay
+Portugal
 Francia
 
 
-España-Brasil·2|0-3
-Senegal-Argentina·X|2-2
-Bélgica-Uruguay·2|1-3
-Inglaterra-Francia·X|2-2
+España-Brasil·2|0-2
+Paises Bajos-Argentina·2|0-1
+Alemania-Portugal·2|0-1
+Inglaterra-Francia·2|1-2
 
 
 Argentina
 Francia
 Brasil
-Uruguay
+Portugal
 
 
-Argentina-Brasil·2|1-3
-Francia-Uruguay·1|1-0
-
-
-Argentina
-Uruguay
+Argentina-Brasil·X|1-1
+Francia-Portugal·1|2-1
 
 
 Brasil
+Portugal
+
+
+Argentina
 Francia
 
 
-Argentina-Uruguay·1|4-1
+Brasil-Portugal·1|3-0
 
 
-Brasil-Francia·1|3-1
+Argentina-Francia·1|2-1
