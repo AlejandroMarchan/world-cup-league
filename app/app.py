@@ -168,6 +168,8 @@ BASE_DIR = 'app/assets/predictions/'
 
 files = os.listdir(BASE_DIR)
 
+files.sort()
+
 PREDICTIONS = {}
 
 for file in files:
@@ -203,7 +205,7 @@ COLUMNS = [
             "name": name.split('.')[0].title(), 
             "id": name,
         }
-        for name in PREDICTIONS.keys() 
+        for name in files 
     ]
 ]
 
@@ -217,7 +219,7 @@ TABLE_STYLE_CELL_CONDITIONAL = [
     *[
         {'if': {'column_id': name},
         'width': '30vw',}
-        for name in PREDICTIONS.keys() 
+        for name in files 
     ]
 ]
 
