@@ -330,7 +330,7 @@ app.layout = html.Div(
                                 dash_table.DataTable(
                                     id='matchs-table',
                                     columns=COLUMNS,
-                                    page_size=20,
+                                    page_size=200,
                                     page_action='native',
                                     sort_action='native',
                                     filter_action='native',
@@ -386,7 +386,7 @@ app.layout = html.Div(
                                 dash_table.DataTable(
                                     id='classification-table',
                                     columns=CLASSIFICATION_COLUMNS,
-                                    page_size=20,
+                                    page_size=200,
                                     page_action='native',
                                     sort_action='native',
                                     filter_action='native',

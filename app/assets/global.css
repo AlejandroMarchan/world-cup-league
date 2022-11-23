@@ -3,7 +3,7 @@ body {
     overflow-x: hidden;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1000px) {
     body {
         font-size: 3vw;
     }
@@ -21,9 +21,9 @@ body {
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1000px) {
     #matchs-table {
-        width: 35vw;
+        width: 60vw;
     }
 
     #matchs-table .dash-spreadsheet-container {
@@ -31,8 +31,22 @@ body {
         height: 78vh;
     }
 
+    #matchs-table .column-3, 
+    #matchs-table .column-4,
+    #matchs-table  .column-5,
+    #matchs-table  .column-6,
+    #matchs-table  .column-7,
+    #matchs-table  .column-8,
+    #matchs-table  .column-9,
+    #matchs-table  .column-10,
+    #matchs-table  .column-11,
+    #matchs-table  .column-12 {
+        min-width: 180px !important;
+        width: 180px !important;
+    }
+
     #classification-table {
-        width: 60vw;
+        width: 35vw;
     }
 
     /* #classification-table .dash-spreadsheet-container {
