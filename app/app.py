@@ -572,6 +572,7 @@ def load_matches(x):
                         pred_row['res_exacto'] += 1
                         styles.append({
                             'if': {
+                                'filter_query': '{match} = "' + match['match'] + '"', 
                                 'row_index': row_idx, 
                                 'column_id': file
                             },
@@ -583,6 +584,7 @@ def load_matches(x):
                         pred_row['res_partido'] += 1
                         styles.append({
                             'if': {
+                                'filter_query': '{match} = "' + match['match'] + '"', 
                                 'row_index': row_idx, 
                                 'column_id': file
                             },
@@ -591,6 +593,7 @@ def load_matches(x):
                     else:
                         styles.append({
                             'if': {
+                                'filter_query': '{match} = "' + match['match'] + '"', 
                                 'row_index': row_idx, 
                                 'column_id': file
                             },
