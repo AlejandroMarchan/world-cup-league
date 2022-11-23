@@ -225,6 +225,10 @@ TABLE_STYLE_CELL_CONDITIONAL = [
 
 CLASSIFICATION_COLUMNS = [
     {
+        "name": 'Pos.', 
+        "id": 'position'
+    },
+    {
         "name": 'Nombre participante', 
         "id": 'nombre'
     },
@@ -263,6 +267,8 @@ CLASSIFICATION_COLUMNS = [
 ]
 
 CLASSIFICATION_TABLE_STYLE_CELL_CONDITIONAL = [
+    {'if': {'column_id': 'position'},
+        'width': '1%'},
     {'if': {'column_id': 'nombre'},
         'width': '20%'},
     {'if': {'column_id': 'total'},
@@ -616,6 +622,9 @@ def load_matches(x):
         pred_rows.append(pred_row)
 
     pred_rows.sort(key=lambda x: x['total'], reverse=True)
+
+    for i, row in enumerate(pred_rows):
+        row['position'] = i + 1
     # print(pred_rows)
 
     return match_rows, pred_rows, styles
