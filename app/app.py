@@ -115,7 +115,7 @@ TEAMS_EN_ES = {
     'Qatar': 'Catar',
     'Ecuador': 'Ecuador',
     'Senegal': 'Senegal',
-    'Nederlands': 'Paises Bajos',
+    'Netherlands': 'Paises Bajos',
     'England': 'Inglaterra',
     'Iran': 'Irán',
     'United States': 'Estados unidos',
