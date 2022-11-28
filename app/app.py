@@ -149,7 +149,8 @@ TEAMS_EN_ES = {
 
 DEV_API_TOKEN = ''
 try:
-    DEV_API_TOKEN = open('api_token', 'r').read()
+    with open('api_token', 'r') as f:
+        DEV_API_TOKEN, DEV_API_EMAIL, DEV_API_PASSWORD = [line.strip() for line in f.readlines()]
 except:
     log.info("Couldn't read local cookie")
 
@@ -158,8 +159,8 @@ DEV = DEV_API_TOKEN != ''
 DEV = False
 
 API_TOKEN = os.getenv('API_TOKEN', DEV_API_TOKEN)
-API_EMAIL = os.getenv('API_EMAIL', '')
-API_PASSWORD = os.getenv('API_PASSWORD', '')
+API_EMAIL = os.getenv('API_EMAIL', DEV_API_EMAIL)
+API_PASSWORD = os.getenv('API_PASSWORD', DEV_API_PASSWORD)
 
 API_CREDS_JSON = {
     'email': API_EMAIL,
@@ -485,6 +486,9 @@ def get_res_symbol(result):
     Output('matchs-table', 'style_data_conditional'),
 )
 def load_matches(x):
+    global HEADERS
+    global API_TOKEN
+
     matches = []
     tic = time.perf_counter()
 
@@ -492,9 +496,11 @@ def load_matches(x):
         with open('app/assets/matches.json', 'r') as f:
             matches = json.load(f)
     else:
+        print('Calling the API')
+        response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
         try:
-            print('Calling the API')
-            response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
+
+            print(f'Response status code: {response.status_code}')
 
             if response.status_code == 401:
                 print('Unauthorized, getting new API token')
@@ -507,13 +513,15 @@ def load_matches(x):
                 }
                 print('Retrying API call')
                 response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
+                print(f'New response status code: {response.status_code}')
+
 
             print('Saving the results.')
             matches = response.json()['data']
             with open('app/assets/matches.json', 'w') as f:
                 json.dump(matches, f)
         except:
-            log.info('API call failed, stored matches fallback')
+            print('API call failed, stored matches fallback')
             with open('app/assets/matches.json', 'r') as f:
                 matches = json.load(f)
     
