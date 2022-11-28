@@ -4,6 +4,7 @@ import sys
 import os
 from datetime import datetime, timedelta
 import json
+import time
 
 # Init logging
 logging.basicConfig(
@@ -485,15 +486,18 @@ def get_res_symbol(result):
 )
 def load_matches(x):
     matches = []
+    tic = time.perf_counter()
+
     if DEV:
         with open('app/assets/matches.json', 'r') as f:
             matches = json.load(f)
     else:
         try:
+            print('Calling the API')
             response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
 
             if response.status_code == 401:
-                print('Unauthorized')
+                print('Unauthorized, getting new API token')
                 api_res = r.post('http://api.cup2022.ir/api/v1/user/login', json=API_CREDS_JSON)
                 API_TOKEN = api_res.json()['data']['token']
                 os.environ["API_TOKEN"] = API_TOKEN
@@ -501,17 +505,23 @@ def load_matches(x):
                     'Authorization': f'Bearer {API_TOKEN}',
                     'Content-type': 'application/json'
                 }
+                print('Retrying API call')
                 response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
 
-            print(response)
-
+            print('Saving the results.')
             matches = response.json()['data']
             with open('app/assets/matches.json', 'w') as f:
                 json.dump(matches, f)
         except:
-            log.info('API call failed')
+            log.info('API call failed, stored matches fallback')
             with open('app/assets/matches.json', 'r') as f:
                 matches = json.load(f)
+    
+    tac = time.perf_counter()
+    
+    print(f'API call ended in {tac - tic} seconds.')
+
+    tic = time.perf_counter()
 
     # print(matches)
     matches.sort(key=lambda x: x['local_date'])
@@ -644,6 +654,11 @@ def load_matches(x):
     for i, row in enumerate(pred_rows):
         row['position'] = i + 1
     # print(pred_rows)
+
+    tac = time.perf_counter()
+    
+    print(f'Total data postprocessing took {tac - tic} seconds.')
+
 
     return match_rows, pred_rows, styles
 
