@@ -148,6 +148,8 @@ TEAMS_EN_ES = {
 }
 
 DEV_API_TOKEN = ''
+DEV_API_EMAIL = ''
+DEV_API_PASSWORD = ''
 try:
     with open('api_token', 'r') as f:
         DEV_API_TOKEN, DEV_API_EMAIL, DEV_API_PASSWORD = [line.strip() for line in f.readlines()]
