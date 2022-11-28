@@ -157,6 +157,13 @@ DEV = DEV_API_TOKEN != ''
 DEV = False
 
 API_TOKEN = os.getenv('API_TOKEN', DEV_API_TOKEN)
+API_EMAIL = os.getenv('API_EMAIL', '')
+API_PASSWORD = os.getenv('API_PASSWORD', '')
+
+API_CREDS_JSON = {
+    'email': API_EMAIL,
+    'password': API_PASSWORD,
+}
 
 HEADERS = {
     'Authorization': f'Bearer {API_TOKEN}',
@@ -484,6 +491,17 @@ def load_matches(x):
     else:
         try:
             response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
+
+            if response.status_code == 401:
+                print('Unauthorized')
+                api_res = r.post('http://api.cup2022.ir/api/v1/user/login', json=API_CREDS_JSON)
+                API_TOKEN = api_res.json()['data']['token']
+                os.environ["API_TOKEN"] = API_TOKEN
+                HEADERS = {
+                    'Authorization': f'Bearer {API_TOKEN}',
+                    'Content-type': 'application/json'
+                }
+                response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
 
             print(response)
 
