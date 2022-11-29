@@ -594,6 +594,10 @@ def load_matches(x, show_groups):
             home_flag, away_flag = away_flag, home_flag
             home_score, away_score = away_score, home_score
             match_tag = f"{home_team}-{away_team}"
+        
+        if match_tag == 'Paises Bajos-Catar':
+            home_score = 2
+            away_score = 0
 
         row = {
             'date': date.strftime('%b %d, %Y, %H:%M'),
