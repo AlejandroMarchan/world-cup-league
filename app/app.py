@@ -360,7 +360,7 @@ app.layout = html.Div(
                             options=[
                                 {"label": "Mostrar fase de Grupos", "value": 1}
                             ],
-                            value=[],
+                            value=[1],
                             id="groups-input",
                             switch=True
                         ),
