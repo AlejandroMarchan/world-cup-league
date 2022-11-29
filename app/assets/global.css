@@ -67,10 +67,10 @@ body {
         width: 35vw;
     }
 
-    /* #classification-table .dash-spreadsheet-container {
+    #classification-table .dash-spreadsheet-container {
         max-height: 100vh;
         height: 78vh;
-    } */
+    }
 }
 
 td img {

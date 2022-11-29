@@ -75,6 +75,22 @@ MATCH_TAGS = [
     'Camerún-Brasil',
     'Ghana-Uruguay',
     'Corea del Sur-Portugal',
+    '12/03/2022 18:00',
+    '12/03/2022 22:00',
+    '12/04/2022 18:00',
+    '12/04/2022 22:00',
+    '12/05/2022 18:00',
+    '12/05/2022 22:00',
+    '12/06/2022 18:00',
+    '12/06/2022 22:00',
+    '12/09/2022 18:00',
+    '12/09/2022 22:00',
+    '12/10/2022 18:00',
+    '12/10/2022 22:00',
+    '12/13/2022 22:00',
+    '12/14/2022 22:00',
+    '12/17/2022 18:00',
+    '12/18/2022 18:00',
 ]
 
 TEAMS_ES_EN = {
@@ -158,7 +174,7 @@ except:
 
 DEV = DEV_API_TOKEN != ''
 
-DEV = False
+# DEV = False
 
 API_TOKEN = os.getenv('API_TOKEN', DEV_API_TOKEN)
 API_EMAIL = os.getenv('API_EMAIL', DEV_API_EMAIL)
@@ -226,11 +242,11 @@ TABLE_STYLE_CELL_CONDITIONAL = [
     {'if': {'column_id': 'match'},
         'width': '15vw'},
     {'if': {'column_id': 'result'},
-        'width': '5vw',},
+        'width': '5vw'},
     *[
         {'if': {'column_id': name},
         'width': '30vw',}
-        for name in files 
+        for name in files
     ]
 ]
 
@@ -333,8 +349,27 @@ app.layout = html.Div(
             justify="center",
             align="center",
             style={
-                'margin-top': '30px',
+                'margin-top': '15px',
             }
+        ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        dbc.Checklist(
+                            options=[
+                                {"label": "Mostrar fase de Grupos", "value": 1}
+                            ],
+                            value=[],
+                            id="groups-input",
+                            switch=True
+                        ),
+                    ],
+                    width="auto"
+                ),
+            ],
+            justify="center",
+            align="center",
         ),
         dbc.Row(
             [
@@ -453,7 +488,7 @@ app.layout = html.Div(
             justify="center",
             align="center",
             style={
-                'margin-top': '30px',
+                'margin-top': '7px',
             }
         ),
         html.P(
@@ -483,11 +518,12 @@ def get_res_symbol(result):
 
 @app.callback(
     Input('placeholder', 'title'),
+    Input('groups-input', 'value'),
     Output('matchs-table', 'data'),
     Output('classification-table', 'data'),
     Output('matchs-table', 'style_data_conditional'),
 )
-def load_matches(x):
+def load_matches(x, show_groups):
     global HEADERS
     global API_TOKEN
 
@@ -538,6 +574,7 @@ def load_matches(x):
     
     match_rows = []
 
+
     for match in matches:
         home_team = TEAMS_EN_ES.get(match['home_team_en'], match['home_team_en'])
         away_team = TEAMS_EN_ES.get(match['away_team_en'], match['away_team_en'])
@@ -559,10 +596,14 @@ def load_matches(x):
             match_tag = f"{home_team}-{away_team}"
 
         row = {
-            'date': date.strftime('%b %d, %Y, %H:%M:%S'),
+            'date': date.strftime('%b %d, %Y, %H:%M'),
             'match': f"![home_flag]({home_flag}) **{home_team}** vs **{away_team}** ![away_flag]({away_flag})",
-            'tag': match_tag,
+            'match_key': match_tag,
+            'home_team': home_team,
+            'away_team': away_team,
+            'tag': match_tag if match['type'] == 'group' else date.strftime('%m/%d/%Y %H:%M'),
             'result': 'Not started' if match['time_elapsed'] == 'notstarted' else f'{home_score} - {away_score}',
+            'type': match['type']
         }
 
         match_rows.append(row)
@@ -591,16 +632,34 @@ def load_matches(x):
         }
         # print(f'[bold]{pred_row["nombre"]}')
         
-        groups_preds = clean_preds[:48]
+        groups_preds =  clean_preds[:48] + \
+                        clean_preds[96:104] + \
+                        clean_preds[112:116] + \
+                        clean_preds[120:122] + \
+                        clean_preds[126:]
 
-        for row_idx, match in enumerate(match_rows):
+        equipos_octavos = clean_preds[80:96]
+        equipos_cuartos = clean_preds[104:112]
+        equipos_semis = clean_preds[116:120]
+        equipos_final = clean_preds[122:126]
+
+        for match in match_rows:
             try:
                 match_idx = MATCH_TAGS.index(match['tag'])
 
                 pred_result = [int(goals) for goals in groups_preds[match_idx].split('|')[1].split('-')]
                 match[file] = f'{pred_result[0]} - {pred_result[1]}'
 
-                if match['result'] != 'Not started':
+                if match['type'] != 'group':
+                    if match['home_team'] in equipos_octavos:
+                        pred_row['octavos'] += 1
+                    if match['away_team'] in equipos_octavos:
+                        pred_row['octavos'] += 1
+
+                # Check if the teams are right
+                if match['type'] != 'group' and match['match_key'] != groups_preds[match_idx].split('·')[0]:
+                    match[file] = '-'
+                elif match['result'] != 'Not started':
 
                     real_result = [int(goals) for goals in match['result'].split('-')]
                     # print(match['tag'])
@@ -616,8 +675,7 @@ def load_matches(x):
                         pred_row['res_exacto'] += 1
                         styles.append({
                             'if': {
-                                'filter_query': '{match} = "' + match['match'] + '"', 
-                                'row_index': row_idx, 
+                                'filter_query': '{match} = "' + match['match'] + '"' + ' && {date} = "' + match['date'] + '"', 
                                 'column_id': file
                             },
                             'backgroundColor': '#92ff9273',
@@ -628,8 +686,7 @@ def load_matches(x):
                         pred_row['res_partido'] += 1
                         styles.append({
                             'if': {
-                                'filter_query': '{match} = "' + match['match'] + '"', 
-                                'row_index': row_idx, 
+                                'filter_query': '{match} = "' + match['match'] + '"' + ' && {date} = "' + match['date'] + '"', 
                                 'column_id': file
                             },
                             'backgroundColor': '#ffff0080',
@@ -637,8 +694,7 @@ def load_matches(x):
                     else:
                         styles.append({
                             'if': {
-                                'filter_query': '{match} = "' + match['match'] + '"', 
-                                'row_index': row_idx, 
+                                'filter_query': '{match} = "' + match['match'] + '"' + ' && {date} = "' + match['date'] + '"', 
                                 'column_id': file
                             },
                             'backgroundColor': '#ff3e3e59',
@@ -664,6 +720,10 @@ def load_matches(x):
     for i, row in enumerate(pred_rows):
         row['position'] = i + 1
     # print(pred_rows)
+
+
+    if len(show_groups) == 0:
+        match_rows = [row for row in match_rows if row['type'] != 'group']
 
     tac = time.perf_counter()
     
