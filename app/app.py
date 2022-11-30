@@ -174,7 +174,7 @@ except:
 
 DEV = DEV_API_TOKEN != ''
 
-DEV = False
+# DEV = False
 
 API_TOKEN = os.getenv('API_TOKEN', DEV_API_TOKEN)
 API_EMAIL = os.getenv('API_EMAIL', DEV_API_EMAIL)
@@ -596,9 +596,9 @@ def load_matches(x, show_groups):
             'local_date': '12/04/2022 22:00',
         },
         {
-            'home_team_en': 'Por definir',
+            'home_team_en': 'Argentina',
             'away_team_en': 'Australia',
-            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png',
+            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/125px-Flag_of_Argentina.svg.png',
             'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Flag_of_Australia_%28converted%29.svg/125px-Flag_of_Australia_%28converted%29.svg.png',
             'home_score': 0,
             'away_score': 0,
@@ -608,9 +608,9 @@ def load_matches(x, show_groups):
         },
         {
             'home_team_en': 'France',
-            'away_team_en': 'Por definir',
+            'away_team_en': 'Poland',
             'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg/125px-Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg.png',
-            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png',
+            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Flag_of_Poland.svg/125px-Flag_of_Poland.svg.png',
             'home_score': 0,
             'away_score': 0,
             'type': 'sixteen',
