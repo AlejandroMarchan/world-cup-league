@@ -647,7 +647,7 @@ def load_matches(x, show_groups):
             away_score = 0
         elif match_tag == 'Túnez-Francia':
             home_score = 1
-            away_score = 1
+            away_score = 0
 
         row = {
             'date': date.strftime('%b %d, %Y, %H:%M'),
