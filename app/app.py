@@ -75,22 +75,22 @@ MATCH_TAGS = [
     'Camerún-Brasil',
     'Ghana-Uruguay',
     'Corea del Sur-Portugal',
-    '12/03/2022 18:00',
-    '12/03/2022 22:00',
-    '12/04/2022 18:00',
-    '12/04/2022 22:00',
-    '12/05/2022 18:00',
-    '12/05/2022 22:00',
-    '12/06/2022 18:00',
-    '12/06/2022 22:00',
-    '12/09/2022 18:00',
-    '12/09/2022 22:00',
-    '12/10/2022 18:00',
-    '12/10/2022 22:00',
-    '12/13/2022 22:00',
-    '12/14/2022 22:00',
-    '12/17/2022 18:00',
-    '12/18/2022 18:00',
+    '12/03/2022 16:00',
+    '12/03/2022 20:00',
+    '12/04/2022 16:00',
+    '12/04/2022 20:00',
+    '12/05/2022 16:00',
+    '12/05/2022 20:00',
+    '12/06/2022 16:00',
+    '12/06/2022 20:00',
+    '12/09/2022 16:00',
+    '12/09/2022 20:00',
+    '12/10/2022 16:00',
+    '12/10/2022 20:00',
+    '12/13/2022 20:00',
+    '12/14/2022 20:00',
+    '12/17/2022 16:00',
+    '12/18/2022 16:00',
 ]
 
 TEAMS_ES_EN = {
@@ -571,9 +571,34 @@ def load_matches(x, show_groups):
 
     # print(matches)
     matches.sort(key=lambda x: x['local_date'])
+
+    matches += [
+        {
+            'home_team_en': 'Paises Bajos',
+            'away_team_en': 'Estados unidos',
+            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/125px-Flag_of_the_Netherlands.svg.png',
+            'away_flag': 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/125px-Flag_of_the_United_States.svg.png',
+            'home_score': 0,
+            'away_score': 0,
+            'type': 'sixteen',
+            'time_elapsed': 'notstarted',
+            'local_date': '12/03/2022 18:00',
+        },
+        {
+            'home_team_en': 'England',
+            'away_team_en': 'Senegal',
+            'home_flag': 'https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/125px-Flag_of_England.svg.png',
+            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Flag_of_Senegal.svg/125px-Flag_of_Senegal.svg.png',
+            'home_score': 0,
+            'away_score': 0,
+            'type': 'sixteen',
+            'time_elapsed': 'notstarted',
+            'local_date': '12/04/2022 22:00',
+        }
+    ]
     
     match_rows = []
-
+    added_matches = []
 
     for match in matches:
         home_team = TEAMS_EN_ES.get(match['home_team_en'], match['home_team_en'])
@@ -610,7 +635,9 @@ def load_matches(x, show_groups):
             'type': match['type']
         }
 
-        match_rows.append(row)
+        if match_tag not in added_matches:
+            match_rows.append(row)
+            added_matches.append(match_tag)
 
     styles = [
         {
