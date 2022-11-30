@@ -667,12 +667,13 @@ def load_matches(x, show_groups):
                         clean_preds[96:104] + \
                         clean_preds[112:116] + \
                         clean_preds[120:122] + \
-                        clean_preds[126:]
+                        clean_preds[126:128]
 
         equipos_octavos = clean_preds[80:96]
         equipos_cuartos = clean_preds[104:112]
         equipos_semis = clean_preds[116:120]
         equipos_final = clean_preds[122:126]
+        equipo_campeon = clean_preds[-1]
 
         for match in match_rows:
             try:
