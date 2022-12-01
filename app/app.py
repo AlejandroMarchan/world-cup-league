@@ -585,17 +585,6 @@ def load_matches(x, show_groups):
             'local_date': '12/03/2022 18:00',
         },
         {
-            'home_team_en': 'England',
-            'away_team_en': 'Senegal',
-            'home_flag': 'https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/125px-Flag_of_England.svg.png',
-            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Flag_of_Senegal.svg/125px-Flag_of_Senegal.svg.png',
-            'home_score': 0,
-            'away_score': 0,
-            'type': 'sixteen',
-            'time_elapsed': 'notstarted',
-            'local_date': '12/04/2022 22:00',
-        },
-        {
             'home_team_en': 'Argentina',
             'away_team_en': 'Australia',
             'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/125px-Flag_of_Argentina.svg.png',
@@ -616,7 +605,40 @@ def load_matches(x, show_groups):
             'type': 'sixteen',
             'time_elapsed': 'notstarted',
             'local_date': '12/04/2022 18:00',
-        }
+        },
+        {
+            'home_team_en': 'England',
+            'away_team_en': 'Senegal',
+            'home_flag': 'https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/125px-Flag_of_England.svg.png',
+            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Flag_of_Senegal.svg/125px-Flag_of_Senegal.svg.png',
+            'home_score': 0,
+            'away_score': 0,
+            'type': 'sixteen',
+            'time_elapsed': 'notstarted',
+            'local_date': '12/04/2022 22:00',
+        },
+        {
+            'home_team_en': 'Morocco',
+            'away_team_en': 'Por definir',
+            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_of_Morocco.svg/125px-Flag_of_Morocco.svg.png',
+            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png',
+            'home_score': 0,
+            'away_score': 0,
+            'type': 'sixteen',
+            'time_elapsed': 'notstarted',
+            'local_date': '12/06/2022 18:00',
+        },
+        {
+            'home_team_en': 'Por definir',
+            'away_team_en': 'Croatia',
+            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png',
+            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Flag_of_Croatia.svg/125px-Flag_of_Croatia.svg.png',
+            'home_score': 0,
+            'away_score': 0,
+            'type': 'sixteen',
+            'time_elapsed': 'notstarted',
+            'local_date': '12/06/2022 22:00',
+        },
     ]
     
     match_rows = []
@@ -648,6 +670,9 @@ def load_matches(x, show_groups):
         elif match_tag == 'Túnez-Francia':
             home_score = 1
             away_score = 0
+        elif match_tag == 'Canadá-Marruecos':
+            home_score = 1
+            away_score = 2
 
         row = {
             'date': date.strftime('%b %d, %Y, %H:%M'),
