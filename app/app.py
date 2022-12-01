@@ -619,9 +619,9 @@ def load_matches(x, show_groups):
         },
         {
             'home_team_en': 'Morocco',
-            'away_team_en': 'Por definir',
+            'away_team_en': 'Spain',
             'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_of_Morocco.svg/125px-Flag_of_Morocco.svg.png',
-            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png',
+            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/125px-Flag_of_Spain.svg.png',
             'home_score': 0,
             'away_score': 0,
             'type': 'sixteen',
@@ -629,9 +629,9 @@ def load_matches(x, show_groups):
             'local_date': '12/06/2022 18:00',
         },
         {
-            'home_team_en': 'Por definir',
+            'home_team_en': 'Japan',
             'away_team_en': 'Croatia',
-            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png',
+            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/125px-Flag_of_Japan.svg.png',
             'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Flag_of_Croatia.svg/125px-Flag_of_Croatia.svg.png',
             'home_score': 0,
             'away_score': 0,
@@ -673,6 +673,12 @@ def load_matches(x, show_groups):
         elif match_tag == 'Canadá-Marruecos':
             home_score = 1
             away_score = 2
+        elif match_tag == 'Japón-España':
+            home_score = 2
+            away_score = 1
+        elif match_tag == 'Costa Rica-Alemania':
+            home_score = 2
+            away_score = 4
 
         row = {
             'date': date.strftime('%b %d, %Y, %H:%M'),
