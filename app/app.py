@@ -360,7 +360,7 @@ app.layout = html.Div(
                             options=[
                                 {"label": "Mostrar fase de Grupos", "value": 1}
                             ],
-                            value=[1],
+                            value=[],
                             id="groups-input",
                             switch=True
                         ),
@@ -573,72 +573,17 @@ def load_matches(x, show_groups):
     matches.sort(key=lambda x: x['local_date'])
 
     matches += [
-        {
-            'home_team_en': 'Paises Bajos',
-            'away_team_en': 'Estados unidos',
-            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/125px-Flag_of_the_Netherlands.svg.png',
-            'away_flag': 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/125px-Flag_of_the_United_States.svg.png',
-            'home_score': 0,
-            'away_score': 0,
-            'type': 'sixteen',
-            'time_elapsed': 'notstarted',
-            'local_date': '12/03/2022 18:00',
-        },
-        {
-            'home_team_en': 'Argentina',
-            'away_team_en': 'Australia',
-            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/125px-Flag_of_Argentina.svg.png',
-            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Flag_of_Australia_%28converted%29.svg/125px-Flag_of_Australia_%28converted%29.svg.png',
-            'home_score': 0,
-            'away_score': 0,
-            'type': 'sixteen',
-            'time_elapsed': 'notstarted',
-            'local_date': '12/03/2022 22:00',
-        },
-        {
-            'home_team_en': 'France',
-            'away_team_en': 'Poland',
-            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg/125px-Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg.png',
-            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Flag_of_Poland.svg/125px-Flag_of_Poland.svg.png',
-            'home_score': 0,
-            'away_score': 0,
-            'type': 'sixteen',
-            'time_elapsed': 'notstarted',
-            'local_date': '12/04/2022 18:00',
-        },
-        {
-            'home_team_en': 'England',
-            'away_team_en': 'Senegal',
-            'home_flag': 'https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/125px-Flag_of_England.svg.png',
-            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Flag_of_Senegal.svg/125px-Flag_of_Senegal.svg.png',
-            'home_score': 0,
-            'away_score': 0,
-            'type': 'sixteen',
-            'time_elapsed': 'notstarted',
-            'local_date': '12/04/2022 22:00',
-        },
-        {
-            'home_team_en': 'Morocco',
-            'away_team_en': 'Spain',
-            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_of_Morocco.svg/125px-Flag_of_Morocco.svg.png',
-            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/125px-Flag_of_Spain.svg.png',
-            'home_score': 0,
-            'away_score': 0,
-            'type': 'sixteen',
-            'time_elapsed': 'notstarted',
-            'local_date': '12/06/2022 18:00',
-        },
-        {
-            'home_team_en': 'Japan',
-            'away_team_en': 'Croatia',
-            'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/125px-Flag_of_Japan.svg.png',
-            'away_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Flag_of_Croatia.svg/125px-Flag_of_Croatia.svg.png',
-            'home_score': 0,
-            'away_score': 0,
-            'type': 'sixteen',
-            'time_elapsed': 'notstarted',
-            'local_date': '12/06/2022 22:00',
-        },
+        # {
+        #     'home_team_en': 'Paises Bajos',
+        #     'away_team_en': 'Estados unidos',
+        #     'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/125px-Flag_of_the_Netherlands.svg.png',
+        #     'away_flag': 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/125px-Flag_of_the_United_States.svg.png',
+        #     'home_score': 0,
+        #     'away_score': 0,
+        #     'type': 'sixteen',
+        #     'time_elapsed': 'notstarted',
+        #     'local_date': '12/03/2022 18:00',
+        # },
     ]
     
     match_rows = []
@@ -658,7 +603,8 @@ def load_matches(x, show_groups):
             or match_tag == 'Serbia-Camerún' \
             or match_tag == 'Inglaterra-Gales' \
             or match_tag == 'Dinamarca-Australia' \
-            or match_tag == 'Brasil-Camerún':
+            or match_tag == 'Brasil-Camerún' \
+            or match['type'] != 'group':
             home_team, away_team = away_team, home_team
             home_flag, away_flag = away_flag, home_flag
             home_score, away_score = away_score, home_score
@@ -679,6 +625,12 @@ def load_matches(x, show_groups):
         elif match_tag == 'Costa Rica-Alemania':
             home_score = 2
             away_score = 4
+        elif match_tag == 'Brasil-Portugal':
+            home_team = 'Portugal'
+            away_team = 'Suiza'
+            home_flag = away_flag
+            away_flag = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/100px-Flag_of_Switzerland.svg.png'
+            match_tag = 'Portugal-Suiza'
 
         row = {
             'date': date.strftime('%b %d, %Y, %H:%M'),
@@ -691,7 +643,7 @@ def load_matches(x, show_groups):
             'type': match['type']
         }
 
-        if match_tag not in added_matches:
+        if match_tag not in added_matches and home_team != '--' and away_team != '--':
             match_rows.append(row)
             added_matches.append(match_tag)
 
@@ -738,7 +690,7 @@ def load_matches(x, show_groups):
                 pred_result = [int(goals) for goals in groups_preds[match_idx].split('|')[1].split('-')]
                 match[file] = f'{pred_result[0]} - {pred_result[1]}'
 
-                if match['type'] != 'group':
+                if match['type'] == 'R16':
                     if match['home_team'] in equipos_octavos:
                         pred_row['octavos'] += 1
                     if match['away_team'] in equipos_octavos:
