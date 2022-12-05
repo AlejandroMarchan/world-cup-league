@@ -570,7 +570,7 @@ def load_matches(x, show_groups):
     tic = time.perf_counter()
 
     # print(matches)
-    matches.sort(key=lambda x: x['local_date'])
+    matches.sort(key=lambda x: datetime.strptime(x['local_date'], '%m/%d/%Y %H:%M'))
 
     matches += [
         # {
@@ -585,6 +585,8 @@ def load_matches(x, show_groups):
         #     'local_date': '12/03/2022 18:00',
         # },
     ]
+
+    prev_type = 'group'
     
     match_rows = []
     added_matches = []
@@ -643,9 +645,70 @@ def load_matches(x, show_groups):
             'type': match['type']
         }
 
+        if match['type'] == 'R16' and prev_type == 'group':
+            match_rows.append(
+                {
+                    'date': '-',
+                    'match': f"**OCTAVOS**",
+                    'match_key': '',
+                    'home_team': '',
+                    'away_team': '',
+                    'tag': '',
+                    'result': 'Not started',
+                    'type': ''
+                }
+            )
+        if match['type'] == 'QR' and prev_type == 'R16':
+            match_rows.append(
+                {
+                    'date': '-',
+                    'match': f"**CUARTOS**",
+                    'match_key': '',
+                    'home_team': '',
+                    'away_team': '',
+                    'tag': '',
+                    'result': 'Not started',
+                    'type': ''
+                }
+            )
+        if match['type'] == 'semi' and prev_type == 'QR':
+            print(row)
+            match_rows.append(
+                {
+                    'date': '-',
+                    'match': f"**SEMIS**",
+                    'match_key': '',
+                    'home_team': '',
+                    'away_team': '',
+                    'tag': '',
+                    'result': 'Not started',
+                    'type': ''
+                }
+            )
+        if match['type'] == 'FIN' and prev_type == 'semi':
+            match_rows.append(
+                {
+                    'date': '-',
+                    'match': f"**FINAL**",
+                    'match_key': '',
+                    'home_team': '',
+                    'away_team': '',
+                    'tag': '',
+                    'result': 'Not started',
+                    'type': ''
+                }
+            )
+
+        # print(row['match'])
+        print(prev_type)
+        print(match['type'])
+
+        prev_type = match['type']
+
         if match_tag not in added_matches and home_team != '--' and away_team != '--':
             match_rows.append(row)
             added_matches.append(match_tag)
+
 
     styles = [
         {
@@ -695,6 +758,24 @@ def load_matches(x, show_groups):
                         pred_row['octavos'] += 1
                     if match['away_team'] in equipos_octavos:
                         pred_row['octavos'] += 1
+
+                if match['type'] == 'QR':
+                    if match['home_team'] in equipos_cuartos:
+                        pred_row['cuartos'] += 1
+                    if match['away_team'] in equipos_cuartos:
+                        pred_row['cuartos'] += 1
+
+                if match['type'] == 'semi':
+                    if match['home_team'] in equipos_semis:
+                        pred_row['semis'] += 1
+                    if match['away_team'] in equipos_semis:
+                        pred_row['semis'] += 1
+
+                if match['type'] == 'FIN':
+                    if match['home_team'] in equipos_final:
+                        pred_row['final'] += 1
+                    if match['away_team'] in equipos_final:
+                        pred_row['final'] += 1
 
                 # Check if the teams are right
                 if match['type'] != 'group' and match['match_key'] != groups_preds[match_idx].split('·')[0]:
