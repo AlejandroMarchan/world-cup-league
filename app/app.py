@@ -174,7 +174,7 @@ except:
 
 DEV = DEV_API_TOKEN != ''
 
-# DEV = False
+DEV = False
 
 API_TOKEN = os.getenv('API_TOKEN', DEV_API_TOKEN)
 API_EMAIL = os.getenv('API_EMAIL', DEV_API_EMAIL)
@@ -535,8 +535,8 @@ def load_matches(x, show_groups):
             matches = json.load(f)
     else:
         print('Calling the API')
-        response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
         try:
+            response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS, timeout=8)
 
             print(f'Response status code: {response.status_code}')
 
@@ -700,8 +700,8 @@ def load_matches(x, show_groups):
             )
 
         # print(row['match'])
-        print(prev_type)
-        print(match['type'])
+        # print(prev_type)
+        # print(match['type'])
 
         prev_type = match['type']
 
