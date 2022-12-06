@@ -174,7 +174,7 @@ except:
 
 DEV = DEV_API_TOKEN != ''
 
-DEV = False
+# DEV = False
 
 API_TOKEN = os.getenv('API_TOKEN', DEV_API_TOKEN)
 API_EMAIL = os.getenv('API_EMAIL', DEV_API_EMAIL)
