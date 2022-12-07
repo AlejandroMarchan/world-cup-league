@@ -542,7 +542,7 @@ def load_matches(x, show_groups):
 
             if response.status_code == 401:
                 print('Unauthorized, getting new API token')
-                api_res = r.post('http://api.cup2022.ir/api/v1/user/login', json=API_CREDS_JSON)
+                api_res = r.post('http://api.cup2022.ir/api/v1/user/login', json=API_CREDS_JSON, timeout=8)
                 API_TOKEN = api_res.json()['data']['token']
                 os.environ["API_TOKEN"] = API_TOKEN
                 HEADERS = {
@@ -550,7 +550,7 @@ def load_matches(x, show_groups):
                     'Content-type': 'application/json'
                 }
                 print('Retrying API call')
-                response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS)
+                response = r.get('http://api.cup2022.ir/api/v1/match', headers=HEADERS, timeout=8)
                 print(f'New response status code: {response.status_code}')
 
 
@@ -672,7 +672,6 @@ def load_matches(x, show_groups):
                 }
             )
         if match['type'] == 'semi' and prev_type == 'QR':
-            print(row)
             match_rows.append(
                 {
                     'date': '-',
@@ -747,6 +746,8 @@ def load_matches(x, show_groups):
         equipo_campeon = clean_preds[-1]
 
         for match in match_rows:
+            if match['date'] == '-':
+                continue
             try:
                 match_idx = MATCH_TAGS.index(match['tag'])
 
