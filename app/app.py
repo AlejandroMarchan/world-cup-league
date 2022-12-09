@@ -606,7 +606,9 @@ def load_matches(x, show_groups):
             or match_tag == 'Inglaterra-Gales' \
             or match_tag == 'Dinamarca-Australia' \
             or match_tag == 'Brasil-Camerún' \
-            or match['type'] != 'group':
+            or match_tag == 'Brasil-Croacia' \
+            or match_tag == 'Francia-Inglaterra' \
+            or match['type'] == 'R16':
             home_team, away_team = away_team, home_team
             home_flag, away_flag = away_flag, home_flag
             home_score, away_score = away_score, home_score
@@ -633,6 +635,12 @@ def load_matches(x, show_groups):
             home_flag = away_flag
             away_flag = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/100px-Flag_of_Switzerland.svg.png'
             match_tag = 'Portugal-Suiza'
+        elif match_tag == 'Japón-Croacia':
+            home_score = 1
+            away_score = 1
+        elif match_tag == 'Marruecos-España':
+            home_score = 0
+            away_score = 0
 
         row = {
             'date': date.strftime('%b %d, %Y, %H:%M'),
