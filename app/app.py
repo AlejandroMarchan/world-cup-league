@@ -572,20 +572,6 @@ def load_matches(x, show_groups):
     # print(matches)
     matches.sort(key=lambda x: datetime.strptime(x['local_date'], '%m/%d/%Y %H:%M'))
 
-    matches += [
-        # {
-        #     'home_team_en': 'Paises Bajos',
-        #     'away_team_en': 'Estados unidos',
-        #     'home_flag': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/125px-Flag_of_the_Netherlands.svg.png',
-        #     'away_flag': 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/125px-Flag_of_the_United_States.svg.png',
-        #     'home_score': 0,
-        #     'away_score': 0,
-        #     'type': 'sixteen',
-        #     'time_elapsed': 'notstarted',
-        #     'local_date': '12/03/2022 18:00',
-        # },
-    ]
-
     prev_type = 'group'
     
     match_rows = []
@@ -653,6 +639,11 @@ def load_matches(x, show_groups):
             'type': match['type']
         }
 
+        if match['type'] == '3RD':
+            row['tag'] = '12/17/2022 16:00'
+        elif match['type'] == 'FIN':
+            row['tag'] = '12/18/2022 16:00'
+
         if match['type'] == 'R16' and prev_type == 'group':
             match_rows.append(
                 {
@@ -692,7 +683,20 @@ def load_matches(x, show_groups):
                     'type': ''
                 }
             )
-        if match['type'] == 'FIN' and prev_type == 'semi':
+        if match['type'] == '3RD' and prev_type == 'semi':
+            match_rows.append(
+                {
+                    'date': '-',
+                    'match': f"**TERCER Y CUARTO**",
+                    'match_key': '',
+                    'home_team': '',
+                    'away_team': '',
+                    'tag': '',
+                    'result': 'Not started',
+                    'type': ''
+                }
+            )
+        if match['type'] == 'FIN' and prev_type == '3RD':
             match_rows.append(
                 {
                     'date': '-',
