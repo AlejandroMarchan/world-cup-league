@@ -754,7 +754,7 @@ def load_matches(x, show_groups):
         equipos_octavos = clean_preds[80:96]
         equipos_cuartos = clean_preds[104:112]
         equipos_semis = clean_preds[116:120]
-        equipos_final = clean_preds[122:126]
+        equipos_final = clean_preds[124:126]
         equipo_campeon = clean_preds[-1]
 
         for match in match_rows:
