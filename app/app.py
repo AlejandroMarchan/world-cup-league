@@ -627,6 +627,9 @@ def load_matches(x, show_groups):
         elif match_tag == 'Marruecos-España':
             home_score = 0
             away_score = 0
+        elif match['type'] == 'FIN':
+            home_score = 3
+            away_score = 3
 
         row = {
             'date': date.strftime('%b %d, %Y, %H:%M'),
@@ -789,6 +792,9 @@ def load_matches(x, show_groups):
                         pred_row['final'] += 1
                     if match['away_team'] in equipos_final:
                         pred_row['final'] += 1
+                    if equipo_campeon == 'Argentina':
+                        pred_row['campeon'] += 1
+
 
                 # Check if the teams are right
                 if match['type'] != 'group' and match['match_key'] != groups_preds[match_idx].split('·')[0]:
